@@ -5,6 +5,7 @@ import CourseBookingLab.CourseBookingLab.repositories.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +18,15 @@ public class BookingController {
     BookingRepository bookingRepository;
 
     @GetMapping("/bookings")
-    public ResponseEntity<List<Booking>> getAllBookings(){
-        List<Booking> foundBookings = bookingRepository.findAll();
-        return new ResponseEntity<>(foundBookings, HttpStatus.OK);
+    public ResponseEntity<List<Booking>> getAllBookings(
+            @RequestParam(required = false, name="date") String date
+    ){
+        if(date != null){
+            return new ResponseEntity(bookingRepository.findByDate(StringUtils.capitalize(date)), HttpStatus.OK);
+        }else{
+            List<Booking> foundBookings = bookingRepository.findAll();
+            return new ResponseEntity<>(foundBookings, HttpStatus.OK);
+        }
     }
 
     @GetMapping("/bookings/{id}")
