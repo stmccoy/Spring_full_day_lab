@@ -26,14 +26,23 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception{
-        Customer customer = new Customer("Sam", "Liverpool", 27);
-        customerRepository.save(customer);
+        Customer customerOne = new Customer("Ben", "Edinburgh", 27);
+        customerRepository.save(customerOne);
 
-        Course course = new Course("KFC Party", "All Over the Uk", STAR_RATINGS.five);
-        courseRepository.save(course);
+        Customer customerTwo = new Customer("Stan", "Livingston", 72);
+        customerRepository.save(customerTwo);
 
-        Booking booking = new Booking("Everyday", customer, course);
-        bookingRepository.save(booking);
+        Course courseOne = new Course("Psychology", "Edinburgh", STAR_RATINGS.five);
+        courseRepository.save(courseOne);
+
+        Course courseTwo = new Course("Math", "Glasgow", STAR_RATINGS.zero);
+        courseRepository.save(courseTwo);
+
+        Booking bookingOne = new Booking("22/03/2020", customerOne, courseOne);
+        bookingRepository.save(bookingOne);
+
+        Booking bookingTwo = new Booking("24/03/2020", customerTwo, courseTwo);
+        bookingRepository.save(bookingTwo);
 
     }
 }
